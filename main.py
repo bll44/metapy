@@ -6,7 +6,7 @@ import time
 import json
 
 config = None
-with open('config', 'r') as f:
+with open(os.path.abspath(os.path.join(__file__, '..', 'config')), 'r') as f:
     config = json.loads(f.read())
 
 _logger = logging.getLogger(__name__)
@@ -43,7 +43,7 @@ def scan_meta():
                     if name != meta_name or meta_name is None:
                         mp4file['\xa9nam'][0] = name
                         _logger.debug('Name was %s, changed to %s' % (meta_name, name))
-                    MP4.save(mp4file)
+                        MP4.save(mp4file)
                 except MutagenError as e:
                     _logger.info('Failed to save the file: %s' % filename)
                     _logger.error(e)
